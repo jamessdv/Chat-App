@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Chat Room</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h2 id="roomTitle"></h2>
+    <div class="chat-box" id="chatBox"></div>
+    <input id="messageInput" placeholder="Type your message">
+    <button onclick="sendMessage()">Send</button>
+  </div>
+
+  <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+  <script>
+    const socket = io();
+    const userName = localStorage.getItem("userName");
+    const roomName = localStorage.getItem("roomName");
+
+    document.getElementById("roomTitle").innerText = `Room: ${roomName}`;
+
+    socket.emit("joinRoom", { roomName, password: localStorage.getItem("password"), userName }, (res) => {
+      if (!res.success) alert(res.message);
+    });
+
+    socket.on("loadMessages", (messages) => {
+      const chatBox = document.getElementById("chatBox");
+      messages.forEach(addMessage);
+    });
+
+    socket.on("newMessage", addMessage);
+
+    function addMessage({ userName, text, time }) {
+      const div = document.createElement("div");
+      div.classList.add("message");
+      div.innerHTML = `<span class="user">${userName}</span>: ${text} <span class="time">${time}</span>`;
+      document.getElementById("chatBox").appendChild(div);
+    }
+
+    function sendMessage() {
+      const text = document.getElementById("messageInput").value;
+      if (!text) return;
+      socket.emit("sendMessage", { roomName, userName, text });
+      document.getElementById("messageInput").value = "";
+    }
+  </script>
+</body>
+</html>

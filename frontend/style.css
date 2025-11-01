@@ -1,0 +1,68 @@
+body {
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  background: linear-gradient(135deg, #2b5876, #4e4376);
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.container {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 30px;
+  border-radius: 15px;
+  width: 350px;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+
+input, button {
+  width: 90%;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 8px;
+  border: none;
+  font-size: 15px;
+}
+
+input {
+  background: rgba(255, 255, 255, 0.8);
+}
+
+button {
+  background: #00c6ff;
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+button:hover {
+  background: #0072ff;
+}
+
+.chat-box {
+  height: 300px;
+  overflow-y: auto;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.15);
+  padding: 10px;
+  text-align: left;
+}
+
+.message {
+  margin: 10px 0;
+}
+
+.user {
+  font-weight: bold;
+  color: #00ffff;
+}
+
+.time {
+  font-size: 12px;
+  opacity: 0.7;
+  margin-left: 5px;
+}
